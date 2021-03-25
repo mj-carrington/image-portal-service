@@ -11,6 +11,7 @@ public class ImagePortalUser {
     @Id
     private String _id;
     private String username;
+    private String password;
     private String firstName;
     private String lastName;
     private List<Album> albums;
@@ -32,6 +33,8 @@ public class ImagePortalUser {
         this.username = username;
         return this;
     }
+
+    public String getPassword() { return password; }
 
     public String getFirstName() {
         return firstName;
