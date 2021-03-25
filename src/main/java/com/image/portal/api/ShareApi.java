@@ -39,7 +39,7 @@ public interface ShareApi {
         consumes = { "application/json" }
     )
     default ResponseEntity<Share> shareImageS(@ApiParam(value = "Image(s) that need to be shared" ,required=true )  @Valid @RequestBody Share body) {
-        return getDelegate().shareImageS(body);
+        return getDelegate().shareImages(body);
     }
 
 }

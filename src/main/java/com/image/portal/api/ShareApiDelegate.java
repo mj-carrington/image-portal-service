@@ -25,9 +25,9 @@ public interface ShareApiDelegate {
      * @param body Image(s) that need to be shared (required)
      * @return Operation Successful (status code 200)
      *         or Invalid input provided (status code 400)
-     * @see ShareApi#shareImageS
+     * @see ShareApi#shareImages
      */
-    default ResponseEntity<Share> shareImageS(Share body) {
+    default ResponseEntity<Share> shareImages(Share body) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
