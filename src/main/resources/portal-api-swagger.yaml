@@ -1,0 +1,473 @@
+---
+swagger: "2.0"
+info:
+  description: This is the Portal API for use with Image Portal website
+  version: 1.0.0
+  title: Portal API
+  contact:
+    email: mcarrington1@live.maryville.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: virtserver.swaggerhub.com
+basePath: /mcarrington1/portal/1.0.0
+schemes:
+- https
+paths:
+  /user/login:
+    get:
+      tags:
+      - login page
+      summary: Logs user into the system
+      description: ""
+      operationId: loginUser
+      produces:
+      - application/json
+      parameters:
+      - name: username
+        in: query
+        description: The user name for login
+        required: true
+        type: string
+      - name: password
+        in: query
+        description: The password for login in clear text
+        required: true
+        type: string
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid input provided
+  /user/:
+    get:
+      tags:
+      - STRETCH - account
+      summary: Retrieve info about the user's account
+      operationId: getUserInfo
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Invalid input provided
+    put:
+      tags:
+      - STRETCH - account
+      summary: Add or update info about the account
+      operationId: updateUserInfo
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Invalid input provided
+  /album/:
+    post:
+      tags:
+      - all albums page
+      summary: Add new album
+      description: ""
+      operationId: addAlbum
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Album object that needs to be added
+        required: true
+        schema:
+          $ref: '#/definitions/Album'
+      responses:
+        "200":
+          description: successful operation
+  /album/{albumId}/image/{imageId}:
+    get:
+      tags:
+      - image view page
+      summary: Find image by album id then image id
+      description: Returns a single image
+      operationId: getImageByAlbumIdAndImageId
+      produces:
+      - application/json
+      parameters:
+      - name: albumId
+        in: path
+        description: Album id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      - name: imageId
+        in: path
+        description: image id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Image'
+        "400":
+          description: Invalid ID supplied or invalid payload
+        "404":
+          description: album or image not found
+    put:
+      tags:
+      - image view page
+      summary: Update an existing image
+      description: ""
+      operationId: updateImage
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: albumId
+        in: path
+        description: Album id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      - name: imageId
+        in: path
+        description: image id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      - in: body
+        name: body
+        description: Image object that needs to be updated
+        required: true
+        schema:
+          $ref: '#/definitions/Image'
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Image not found
+        "200":
+          description: successful operation
+    delete:
+      tags:
+      - image view page
+      summary: Deletes an image via album and image id
+      description: ""
+      operationId: deleteImageByAlbumIdAndImageId
+      produces:
+      - application/json
+      parameters:
+      - name: albumId
+        in: path
+        description: Album id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      - name: imageId
+        in: path
+        description: image id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Image not found
+  /album/{albumId}/images/:
+    get:
+      tags:
+      - thumbnail view page
+      summary: Return images for album
+      description: Returns all images for a given album
+      operationId: getImagesByAlbumId
+      produces:
+      - application/json
+      parameters:
+      - name: albumId
+        in: path
+        description: Album id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AllImages'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: album not found
+  /album/{albumId}/image/:
+    post:
+      tags:
+      - thumbnail view page
+      summary: Add new image to album
+      description: ""
+      operationId: addImageToAlbum
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: albumId
+        in: path
+        description: Album id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      - in: body
+        name: body
+        description: Image object that needs to be added
+        required: true
+        schema:
+          $ref: '#/definitions/Image'
+      responses:
+        "200":
+          description: Operation Successful
+          schema:
+            $ref: '#/definitions/Image'
+        "404":
+          description: Unable to locate album
+  /album/{albumId}:
+    get:
+      tags:
+      - all albums page
+      - thumbnail view page
+      - image view page
+      summary: Find album by ID
+      description: Returns a single album
+      operationId: getAlbumById
+      produces:
+      - application/json
+      parameters:
+      - name: albumId
+        in: path
+        description: Album id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Album'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Album not found
+    delete:
+      tags:
+      - thumbnail view page
+      summary: Deletes an album
+      description: ""
+      operationId: deleteAlbum
+      produces:
+      - application/json
+      parameters:
+      - name: albumId
+        in: path
+        description: Album id to perform operation on
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Album not found
+  /albums/:
+    get:
+      tags:
+      - all albums page
+      summary: get all albums
+      description: Returns all albums
+      operationId: getAlbums
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AllAlbums'
+  /share/:
+    post:
+      tags:
+      - thumbnail view page
+      - image view page
+      summary: share image(s) to a customer
+      description: ""
+      operationId: shareImage(s)
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Image(s) that need to be shared
+        required: true
+        schema:
+          $ref: '#/definitions/Share'
+      responses:
+        "400":
+          description: Invalid input provided
+        "200":
+          description: Operation Successful
+          schema:
+            $ref: '#/definitions/Share'
+definitions:
+  Album:
+    type: object
+    required:
+    - id
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      description:
+        type: string
+      created:
+        type: string
+        format: date-time
+      images:
+        type: array
+        items:
+          $ref: '#/definitions/Image'
+    example:
+    - id: 1
+      name: Swim meet St. Louis Mar 2021
+      description: St. Peters RecPlex Swimming
+      created: 2021-03-15T01:44:51.756Z
+      images: []
+  AllAlbums:
+    type: array
+    items:
+      $ref: '#/definitions/Album'
+    example:
+    - id: 1
+      name: Swim meet St. Louis Mar 2021
+      description: St. Peters RecPlex Swimming
+      created: 2021-03-15T01:44:51.756+0000
+      images: []
+    - id: 2
+      name: Swim meet St. Louis Jan 2021
+      description: St. Peters RecPlex Swimming
+      created: 2021-01-15T01:44:51.756+0000
+      images: []
+  Image:
+    type: object
+    required:
+    - id
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      tag:
+        type: string
+      location:
+        type: string
+    example:
+    - id: 1
+      name: 12312312.png
+      tag: ID-123145
+      location: https://s3.amazonaws.com/TEST/f82dd4ac221b.png
+  AllImages:
+    type: array
+    items:
+      $ref: '#/definitions/Image'
+    example:
+    - id: 1
+      name: 12312312.png
+      tag: ID-123145
+      location: https://s3.amazonaws.com/TEST/f82dd4ac221b.png
+    - id: 2
+      name: 12312315.png
+      tag: ID-123199
+      location: https://s3.amazonaws.com/TEST/f82dd4ac100b.png
+  Share:
+    type: object
+    required:
+    - email
+    - imageUrls
+    properties:
+      imageUrls:
+        type: array
+        items:
+          type: string
+      email:
+        type: string
+  User:
+    type: object
+    required:
+    - password
+    - userName
+    properties:
+      userName:
+        type: string
+      password:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      location:
+        type: string
+      bio:
+        type: string
+      twitter:
+        type: string
+      linkedin:
+        type: string
+      personalSite:
+        type: string
+      userIcon:
+        type: string
+      shareAbleData:
+        type: array
+        items:
+          $ref: '#/definitions/shareAbleData'
+    example:
+    - userName: mcarrington
+      password: passwordpassword
+      firstName: M.J.
+      lastName: Carrington
+      location: St. Louis, MO
+      bio: I do computer-things.
+      twitter: http://www.twitter.com
+      linkedin: http://www.linkedin.com
+      personalSite: http://www.google.com
+      userIcon: https://s3.amazonaws.com/TEST/f82dd4ac221b.png
+      shareAbleData:
+      - twitter
+      - true
+  shareAbleData:
+    type: object
+    required:
+    - isShareable
+    - shareAbleDataType
+    properties:
+      shareAbleDataType:
+        type: string
+      isShareable:
+        type: boolean
