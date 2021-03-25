@@ -24,6 +24,8 @@
 		<datatype-threetenbp-version>2.6.4</datatype-threetenbp-version>
 		<migbase64-version>2.2</migbase64-version>
 		<jackson-databind-nullable>0.2.1</jackson-databind-nullable>
+		<apache-version>3.12.0</apache-version>
+		<open-api-generator-version>5.0.0</open-api-generator-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -127,6 +129,11 @@
 			<groupId>org.openapitools</groupId>
 			<artifactId>jackson-databind-nullable</artifactId>
 			<version>${jackson-databind-nullable}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache-version}</version>
 		</dependency>
 	</dependencies>
 

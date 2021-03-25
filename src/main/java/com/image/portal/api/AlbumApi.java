@@ -58,7 +58,7 @@ public interface AlbumApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Image> addImageToAlbum(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") Long albumId,@ApiParam(value = "Image object that needs to be added" ,required=true )  @Valid @RequestBody Image body) {
+    default ResponseEntity<Image> addImageToAlbum(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") String albumId,@ApiParam(value = "Image object that needs to be added" ,required=true )  @Valid @RequestBody Image body) {
         return getDelegate().addImageToAlbum(albumId, body);
     }
 
@@ -79,7 +79,7 @@ public interface AlbumApi {
     @DeleteMapping(
         value = "/album/{albumId}"
     )
-    default ResponseEntity<Void> deleteAlbum(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") Long albumId) {
+    default ResponseEntity<Void> deleteAlbum(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") String albumId) {
         return getDelegate().deleteAlbum(albumId);
     }
 
@@ -101,7 +101,7 @@ public interface AlbumApi {
     @DeleteMapping(
         value = "/album/{albumId}/image/{imageId}"
     )
-    default ResponseEntity<Void> deleteImageByAlbumIdAndImageId(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") Long albumId,@ApiParam(value = "image id to perform operation on",required=true) @PathVariable("imageId") Long imageId) {
+    default ResponseEntity<Void> deleteImageByAlbumIdAndImageId(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") String albumId,@ApiParam(value = "image id to perform operation on",required=true) @PathVariable("imageId") Long imageId) {
         return getDelegate().deleteImageByAlbumIdAndImageId(albumId, imageId);
     }
 
@@ -124,7 +124,7 @@ public interface AlbumApi {
         value = "/album/{albumId}",
         produces = { "application/json" }
     )
-    default ResponseEntity<Album> getAlbumById(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") Long albumId) {
+    default ResponseEntity<Album> getAlbumById(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") String albumId) {
         return getDelegate().getAlbumById(albumId);
     }
 
@@ -148,7 +148,7 @@ public interface AlbumApi {
         value = "/album/{albumId}/image/{imageId}",
         produces = { "application/json" }
     )
-    default ResponseEntity<Image> getImageByAlbumIdAndImageId(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") Long albumId,@ApiParam(value = "image id to perform operation on",required=true) @PathVariable("imageId") Long imageId) {
+    default ResponseEntity<Image> getImageByAlbumIdAndImageId(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") String albumId,@ApiParam(value = "image id to perform operation on",required=true) @PathVariable("imageId") Long imageId) {
         return getDelegate().getImageByAlbumIdAndImageId(albumId, imageId);
     }
 
@@ -171,7 +171,7 @@ public interface AlbumApi {
         value = "/album/{albumId}/images/",
         produces = { "application/json" }
     )
-    default ResponseEntity<List<Image>> getImagesByAlbumId(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") Long albumId) {
+    default ResponseEntity<List<Image>> getImagesByAlbumId(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") String albumId) {
         return getDelegate().getImagesByAlbumId(albumId);
     }
 
@@ -195,7 +195,7 @@ public interface AlbumApi {
         value = "/album/{albumId}/image/{imageId}",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> updateImage(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") Long albumId,@ApiParam(value = "image id to perform operation on",required=true) @PathVariable("imageId") Long imageId,@ApiParam(value = "Image object that needs to be updated" ,required=true )  @Valid @RequestBody Image body) {
+    default ResponseEntity<Void> updateImage(@ApiParam(value = "Album id to perform operation on",required=true) @PathVariable("albumId") String albumId,@ApiParam(value = "image id to perform operation on",required=true) @PathVariable("imageId") Long imageId,@ApiParam(value = "Image object that needs to be updated" ,required=true )  @Valid @RequestBody Image body) {
         return getDelegate().updateImage(albumId, imageId, body);
     }
 

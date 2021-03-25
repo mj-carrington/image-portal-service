@@ -2,6 +2,7 @@ package com.image.portal.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,7 +16,7 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-03-24T09:41:07.734618300-05:00[America/Chicago]")
 public class Album   {
   @JsonProperty("id")
-  private Long albumId;
+  private String albumId = RandomStringUtils.randomAlphanumeric(8);
 
   @JsonProperty("name")
   private String albumName;
@@ -31,7 +32,7 @@ public class Album   {
   @Valid
   private List<Image> images = null;
 
-  public Album id(Long id) {
+  public Album id(String id) {
     this.albumId = id;
     return this;
   }
@@ -44,11 +45,11 @@ public class Album   {
   @NotNull
 
 
-  public Long getId() {
+  public String getId() {
     return albumId;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.albumId = id;
   }
 

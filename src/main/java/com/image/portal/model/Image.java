@@ -2,6 +2,7 @@ package com.image.portal.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-03-24T09:41:07.734618300-05:00[America/Chicago]")
 public class Image   {
   @JsonProperty("id")
-  private Long imageId;
+  private String imageId = RandomStringUtils.randomAlphanumeric(8);
 
   @JsonProperty("name")
   private String imageName;
@@ -25,7 +26,7 @@ public class Image   {
 
   private String imageUpload;
 
-  public Image id(Long id) {
+  public Image id(String id) {
     this.imageId = id;
     return this;
   }
@@ -38,11 +39,11 @@ public class Image   {
   @NotNull
 
 
-  public Long getId() {
+  public String getId() {
     return imageId;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.imageId = id;
   }
 

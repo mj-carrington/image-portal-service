@@ -29,7 +29,7 @@ public interface AlbumApiDelegate {
      * @see AlbumApi#addAlbum
      */
     default ResponseEntity<Void> addAlbum(Album body) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 
@@ -42,7 +42,7 @@ public interface AlbumApiDelegate {
      *         or Unable to locate album (status code 404)
      * @see AlbumApi#addImageToAlbum
      */
-    default ResponseEntity<Image> addImageToAlbum(Long albumId,
+    default ResponseEntity<Image> addImageToAlbum(String albumId,
         Image body) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -66,7 +66,7 @@ public interface AlbumApiDelegate {
      *         or Album not found (status code 404)
      * @see AlbumApi#deleteAlbum
      */
-    default ResponseEntity<Void> deleteAlbum(Long albumId) {
+    default ResponseEntity<Void> deleteAlbum(String albumId) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -81,7 +81,7 @@ public interface AlbumApiDelegate {
      *         or Image not found (status code 404)
      * @see AlbumApi#deleteImageByAlbumIdAndImageId
      */
-    default ResponseEntity<Void> deleteImageByAlbumIdAndImageId(Long albumId,
+    default ResponseEntity<Void> deleteImageByAlbumIdAndImageId(String albumId,
         Long imageId) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -97,7 +97,7 @@ public interface AlbumApiDelegate {
      *         or Album not found (status code 404)
      * @see AlbumApi#getAlbumById
      */
-    default ResponseEntity<Album> getAlbumById(Long albumId) {
+    default ResponseEntity<Album> getAlbumById(String albumId) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -122,7 +122,7 @@ public interface AlbumApiDelegate {
      *         or album or image not found (status code 404)
      * @see AlbumApi#getImageByAlbumIdAndImageId
      */
-    default ResponseEntity<Image> getImageByAlbumIdAndImageId(Long albumId,
+    default ResponseEntity<Image> getImageByAlbumIdAndImageId(String albumId,
         Long imageId) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -147,7 +147,7 @@ public interface AlbumApiDelegate {
      *         or album not found (status code 404)
      * @see AlbumApi#getImagesByAlbumId
      */
-    default ResponseEntity<List<Image>> getImagesByAlbumId(Long albumId) {
+    default ResponseEntity<List<Image>> getImagesByAlbumId(String albumId) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -172,7 +172,7 @@ public interface AlbumApiDelegate {
      *         or Image not found (status code 404)
      * @see AlbumApi#updateImage
      */
-    default ResponseEntity<Void> updateImage(Long albumId,
+    default ResponseEntity<Void> updateImage(String albumId,
         Long imageId,
         Image body) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);

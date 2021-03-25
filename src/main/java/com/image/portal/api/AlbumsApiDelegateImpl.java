@@ -1,8 +1,8 @@
 package com.image.portal.api;
 
 import com.image.portal.model.Album;
-import com.image.portal.model.ImagePortalUser;
 import com.image.portal.repository.ImagePortalUserRepository;
+import com.image.portal.service.ImagePortalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,14 @@ public class AlbumsApiDelegateImpl implements AlbumsApiDelegate {
 
     @Override
     public ResponseEntity<List<Album>> getAlbums() {
+        ImagePortalUserService imagePortalUserService = new ImagePortalUserService();
+        return ResponseEntity.ok(imagePortalUserService
+                .retrieveImagePortalUser(imagePortalUserRepository)
+                .getAlbums());
 
-        ImagePortalUser imagePortalUser;
-        imagePortalUser = imagePortalUserRepository.findByUsername("test1");
-
-        return ResponseEntity.ok(imagePortalUser.getAlbums());
+/*        ImagePortalUser imagePortalUser;
+        imagePortalUser = imagePortalUserRepository.findByUsername(MVP_USERNAME.getValue());
+        return ResponseEntity.ok(imagePortalUser.getAlbums());*/
 
 /*        Album album = new Album();
         album.setDescription("Hello description!");
