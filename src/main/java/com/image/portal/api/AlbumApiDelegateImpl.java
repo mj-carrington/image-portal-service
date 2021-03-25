@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AlbumApiDelegateImpl implements AlbumApiDelegate {
@@ -21,8 +23,7 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     @Override
     public ResponseEntity<Void> addAlbum(Album album) {
-        ImagePortalUserService imagePortalUserService = new ImagePortalUserService();
-        ImagePortalUser updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+        updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
         updatedImagePortalUser.addNewAlbum(album);
         imagePortalUserRepository.save(updatedImagePortalUser);
 
@@ -31,8 +32,7 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     @Override
     public ResponseEntity<Image> addImageToAlbum(String albumId, Image body) {
-        ImagePortalUserService imagePortalUserService = new ImagePortalUserService();
-        ImagePortalUser updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+        updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
         updatedImagePortalUser.addNewImageToAlbum(albumId, body);
         imagePortalUserRepository.save(updatedImagePortalUser);
 
@@ -48,4 +48,46 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<Void> deleteImageByAlbumIdAndImageId(String albumId, String imageId) {
+        updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+        updatedImagePortalUser.removeImageFromAlbum(albumId, imageId);
+        imagePortalUserRepository.save(updatedImagePortalUser);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Album> getAlbumById(String albumId) {
+        updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+        Album album = updatedImagePortalUser.getAlbumById(albumId);
+        return new ResponseEntity<>(album, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Image> getImageByAlbumIdAndImageId(String albumId, String imageId) {
+        updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+        Image image = updatedImagePortalUser.getImageByAlbumId(albumId, imageId);
+
+        return new ResponseEntity<>(image, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<Image>> getImagesByAlbumId(String albumId) {
+        updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+        updatedImagePortalUser.getAlbums();
+        List<Image> images = updatedImagePortalUser.getImagesByAlbumId(albumId);
+
+        return new ResponseEntity<>(images, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Void> updateImage(String albumId, String imageId, Image body) {
+        updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+
+        updatedImagePortalUser.updateImageToAlbum(albumId, imageId, body);
+        imagePortalUserRepository.save(updatedImagePortalUser);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

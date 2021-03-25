@@ -82,7 +82,7 @@ public interface AlbumApiDelegate {
      * @see AlbumApi#deleteImageByAlbumIdAndImageId
      */
     default ResponseEntity<Void> deleteImageByAlbumIdAndImageId(String albumId,
-        Long imageId) {
+        String imageId) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -123,7 +123,7 @@ public interface AlbumApiDelegate {
      * @see AlbumApi#getImageByAlbumIdAndImageId
      */
     default ResponseEntity<Image> getImageByAlbumIdAndImageId(String albumId,
-        Long imageId) {
+        String imageId) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -173,7 +173,7 @@ public interface AlbumApiDelegate {
      * @see AlbumApi#updateImage
      */
     default ResponseEntity<Void> updateImage(String albumId,
-        Long imageId,
+        String imageId,
         Image body) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 

@@ -74,26 +74,33 @@ public class ImagePortalUser {
         this.albums.set(index, album);
     }
 
-    private Album findAlbumById(String albumId) {
+    public Album getAlbumById(String albumId) {
         return this.albums.stream()
                 .filter(singleAlbum -> singleAlbum.getId().equals(albumId))
                 .findAny()
                 .orElse(null);
     }
 
+    public Image getImageById(Album album, String imageId) {
+        return album.getImages().stream()
+                .filter(image -> image.getId().equals(imageId))
+                .findAny()
+                .orElse(null);
+    }
+
+    public Image getImageByAlbumId(String albumId, String imageId) {
+        // 1 - find the album
+        Album album = getAlbumById(albumId);
+        // 2 - find the image & return
+        return getImageById(album, imageId);
+    }
+
+    public List<Image> getImagesByAlbumId(String albumId) {
+        return getAlbumById(albumId).getImages();
+    }
+
     public void addNewImageToAlbum(String albumId, Image image) {
-        // find the right album from the albums list
-/*        Album albumToUpdate = this.albums.stream()
-                .filter(singleAlbum -> singleAlbum.getId().equals(album.getId()))
-                .findAny()
-                .orElse(null);*/
-
-/*        Album albumToUpdate = this.albums.stream()
-                .filter(singleAlbum -> singleAlbum.getId().equals(albumId))
-                .findAny()
-                .orElse(null);*/
-
-        Album albumToUpdate = findAlbumById(albumId);
+        Album albumToUpdate = getAlbumById(albumId);
 
         // build an album with our updated image
         albumToUpdate.getImages().add(image);
@@ -102,19 +109,32 @@ public class ImagePortalUser {
         replaceAlbum(albumToUpdate);
     }
 
+    // TODO: Consider looping through image list instead of rebuilding entire album
+    public void updateImageToAlbum(String albumId, String imageId, Image image) {
+        Album albumToUpdate = getAlbumById(albumId);
+        image.setId(imageId);
+
+        int index = IntStream.range(0, albumToUpdate.getImages().size())
+                .filter(i -> albumToUpdate.getImages().get(i).getId().equals(image.getId()))
+                .findFirst()
+                .orElse(-1);
+
+        albumToUpdate.getImages().set(index, image);
+
+        // put back together album and replace
+        replaceAlbum(albumToUpdate);
+    }
+
     public void removeAlbum(String albumId) {
         this.albums.removeIf(e -> e.getId().equals(albumId));
     }
 
-    // TODO: WIP
-    public void deleteImageFromAlbum(String albumId, Image image) {
+    public void removeImageFromAlbum(String albumId, String imageId) {
         // get album to update
-        Album albumToUpdate = findAlbumById(albumId);
+        Album albumToUpdate = getAlbumById(albumId);
 
-        // find specific image
-
-
-        // delete image
+        // find specific image and delete
+        albumToUpdate.getImages().removeIf(e -> e.getId().equals(imageId));
 
         // send updated album
         replaceAlbum(albumToUpdate);
