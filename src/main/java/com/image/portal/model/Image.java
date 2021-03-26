@@ -3,6 +3,7 @@ package com.image.portal.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -25,6 +26,8 @@ public class Image   {
   private String imageLocation;
 
   private String imageUpload;
+
+  private MultipartFile file;
 
   public Image id(String id) {
     this.imageId = id;
