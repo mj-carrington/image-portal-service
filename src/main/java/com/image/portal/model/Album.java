@@ -30,7 +30,7 @@ public class Album   {
 
   @JsonProperty("images")
   @Valid
-  private List<Image> images = null;
+  private List<Image> images = new ArrayList<>();
 
   public Album id(String id) {
     this.albumId = id;

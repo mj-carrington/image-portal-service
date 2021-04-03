@@ -4,6 +4,7 @@ import com.image.portal.model.Album;
 import com.image.portal.model.Image;
 import com.image.portal.model.ImagePortalUser;
 import com.image.portal.repository.ImagePortalUserRepository;
+import com.image.portal.service.AmazonS3Service;
 import com.image.portal.service.ImagePortalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,8 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     @Autowired
     private ImagePortalUserRepository imagePortalUserRepository;
+    @Autowired
+    private AmazonS3Service amazonS3Service;
     private ImagePortalUserService imagePortalUserService = new ImagePortalUserService();
     private ImagePortalUser updatedImagePortalUser;
 
@@ -42,6 +45,10 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
     @Override
     public ResponseEntity<Void> deleteAlbum(String albumId) {
         updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+        // delete from S3
+        List<Image> images = updatedImagePortalUser.getImagesByAlbumId(albumId);
+        images.forEach((image) -> amazonS3Service.removeImageFromAmazon(image));
+        // delete from MongoDB
         updatedImagePortalUser.removeAlbum(albumId);
         imagePortalUserRepository.save(updatedImagePortalUser);
 
@@ -51,6 +58,10 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
     @Override
     public ResponseEntity<Void> deleteImageByAlbumIdAndImageId(String albumId, String imageId) {
         updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+        // delete from S3
+        Image image = updatedImagePortalUser.getImageByAlbumId(albumId, imageId);
+        amazonS3Service.removeImageFromAmazon(image);
+        // delete from MongoDB
         updatedImagePortalUser.removeImageFromAlbum(albumId, imageId);
         imagePortalUserRepository.save(updatedImagePortalUser);
 
