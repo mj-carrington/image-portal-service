@@ -27,14 +27,12 @@ public class AlbumApiDelegateImplTest {
     private final String TEST_IMAGE_ID_ONE = "img1234";
 
     @InjectMocks
-    private AlbumApiDelegateImpl albumApiDelegateimpl;
+    private AlbumApiDelegateImpl albumApiDelegateImpl;
 
     @Mock
     private ImagePortalUserRepository mockedImagePortalUserRepository;
     @Mock
     private ImagePortalUserService mockedImagePortalUserService;
-    @Mock
-    private ImagePortalUser mockImagePortalUser;
 
 
     @BeforeEach
@@ -45,49 +43,71 @@ public class AlbumApiDelegateImplTest {
     }
 
     @Test
-    void testGetAlbumById() {
-        ResponseEntity<Album> response = albumApiDelegateimpl.getAlbumById(TEST_ALBUM_ID);
+    void testAddAlbum() {
+        ResponseEntity<Void> response = albumApiDelegateImpl.addAlbum(getTestAlbum());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
 
-        assertEquals(getTestAlbumList(), response.getBody());
+    @Test
+    void testAddImageToAlbum() {
+        ResponseEntity<Image> response = albumApiDelegateImpl.addImageToAlbum(TEST_ALBUM_ID, generateNewImage());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    void testDeleteAlbum() {
+        ResponseEntity<Void> response = albumApiDelegateImpl.deleteAlbum(TEST_ALBUM_ID);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    void testDeleteImageByAlbumIdAndImageId() {
+        ResponseEntity<Void> response = albumApiDelegateImpl.deleteImageByAlbumIdAndImageId(TEST_ALBUM_ID, TEST_IMAGE_ID_ONE);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    void testGetAlbumById() {
+        ResponseEntity<Album> response = albumApiDelegateImpl.getAlbumById(TEST_ALBUM_ID);
+        assertEquals(getTestAlbum(), response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
     void testGetImagesByAlbumId() {
-        ResponseEntity<List<Image>> response = albumApiDelegateimpl.getImagesByAlbumId(TEST_ALBUM_ID);
-
+        ResponseEntity<List<Image>> response = albumApiDelegateImpl.getImagesByAlbumId(TEST_ALBUM_ID);
         assertEquals(getTestImageList(), response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
     void testGetImageByAlbumIdAndImageId() {
-        ResponseEntity<Image> response = albumApiDelegateimpl.getImageByAlbumIdAndImageId(TEST_ALBUM_ID, TEST_IMAGE_ID_ONE);
-
+        ResponseEntity<Image> response = albumApiDelegateImpl.getImageByAlbumIdAndImageId(TEST_ALBUM_ID, TEST_IMAGE_ID_ONE);
         Image expectedImage = getTestImageList().get(0);
-
         assertEquals(expectedImage, response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
     void testUpdateImage() {
+        ResponseEntity<Void> response = albumApiDelegateImpl.updateImage(TEST_ALBUM_ID, TEST_IMAGE_ID_ONE, generateNewImage());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    private Image generateNewImage() {
         Image updatedImage = new Image();
         updatedImage.setName("new name");
         updatedImage.setLocation("https://aws.amazon.com/1234-new.png");
         updatedImage.setImageTag("new tag");
 
-        ResponseEntity<Void> response = albumApiDelegateimpl.updateImage(TEST_ALBUM_ID, TEST_IMAGE_ID_ONE, updatedImage);
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        // TODO: If implementation changes to return list we should verify the body
+        return updatedImage;
     }
-
 
     private ImagePortalUser generateImagePortalUser() {
         ImagePortalUser imagePortalUser = new ImagePortalUser();
 
         List<Album> albums = new ArrayList<>();
-        albums.add(getTestAlbumList());
+        albums.add(getTestAlbum());
 
         return imagePortalUser.setAlbums(albums)
                 .setFirstName("m.j.")
@@ -96,7 +116,7 @@ public class AlbumApiDelegateImplTest {
                 .setUsername("user1");
     }
 
-    private Album getTestAlbumList() {
+    private Album getTestAlbum() {
         Album album = new Album();
         album.setCreated("01-16-2021");
         album.setDescription("test album");
