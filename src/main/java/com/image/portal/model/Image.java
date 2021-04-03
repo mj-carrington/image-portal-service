@@ -6,6 +6,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -24,6 +25,9 @@ public class Image   {
 
   @JsonProperty("location")
   private String imageLocation;
+
+  @JsonProperty("created")
+  private String created = LocalDateTime.now().toString();
 
   private String imageUpload;
 

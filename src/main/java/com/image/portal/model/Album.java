@@ -6,6 +6,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,8 +26,7 @@ public class Album   {
   private String albumDescription;
 
   @JsonProperty("created")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME)
-  private String albumCreated;
+  private String created = LocalDateTime.now().toString();
 
   @JsonProperty("images")
   @Valid
@@ -94,7 +94,7 @@ public class Album   {
   }
 
   public Album created(String created) {
-    this.albumCreated = created;
+    this.created = created;
     return this;
   }
 
@@ -107,11 +107,11 @@ public class Album   {
   @Valid
 
   public String getCreated() {
-    return albumCreated;
+    return created;
   }
 
   public void setCreated(String created) {
-    this.albumCreated = created;
+    this.created = created;
   }
 
   public Album images(List<Image> images) {
@@ -156,13 +156,13 @@ public class Album   {
     return Objects.equals(this.albumId, album.albumId) &&
         Objects.equals(this.albumName, album.albumName) &&
         Objects.equals(this.albumDescription, album.albumDescription) &&
-        Objects.equals(this.albumCreated, album.albumCreated) &&
+        Objects.equals(this.created, album.created) &&
         Objects.equals(this.images, album.images);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(albumId, albumName, albumDescription, albumCreated, images);
+    return Objects.hash(albumId, albumName, albumDescription, created, images);
   }
 
   @Override
@@ -173,7 +173,7 @@ public class Album   {
     sb.append("    id: ").append(toIndentedString(albumId)).append("\n");
     sb.append("    name: ").append(toIndentedString(albumName)).append("\n");
     sb.append("    description: ").append(toIndentedString(albumDescription)).append("\n");
-    sb.append("    created: ").append(toIndentedString(albumCreated)).append("\n");
+    sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    images: ").append(toIndentedString(images)).append("\n");
     sb.append("}");
     return sb.toString();
