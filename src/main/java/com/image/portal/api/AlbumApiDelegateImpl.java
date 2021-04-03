@@ -81,6 +81,7 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
         return new ResponseEntity<>(images, HttpStatus.OK);
     }
 
+    // TODO: Investigate sending back the body of the new image instead of void here.
     @Override
     public ResponseEntity<Void> updateImage(String albumId, String imageId, Image body) {
         updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
