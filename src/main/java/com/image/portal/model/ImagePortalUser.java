@@ -36,6 +36,11 @@ public class ImagePortalUser {
 
     public String getPassword() { return password; }
 
+    public ImagePortalUser setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -150,6 +155,7 @@ public class ImagePortalUser {
         sb.append(", username=").append(username);
         sb.append(", firstName=").append(firstName);
         sb.append(", lastName=").append(lastName);
+        sb.append(", password=").append(password);
         sb.append(", albums=").append(albums);
         sb.append('}');
         return sb.toString();
