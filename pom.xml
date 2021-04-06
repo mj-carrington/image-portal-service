@@ -167,8 +167,8 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
+<!-- Commented out, as we don't want to continually generate new API in the target folder-->
+	<!--<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -201,5 +201,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
+-->
 </project>
