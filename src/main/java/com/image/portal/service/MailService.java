@@ -17,6 +17,11 @@ public class MailService {
         this.javaMailSender = javaMailSender;
     }
 
+    /**
+     * Send email via the mail sender library. This generates the body and contents of the email.
+     * @param share
+     * @throws MailException Most common cause for a mail exception is the server not being up.
+     */
     public void sendEmail(Share share) throws MailException {
 
         SimpleMailMessage mail = new SimpleMailMessage();

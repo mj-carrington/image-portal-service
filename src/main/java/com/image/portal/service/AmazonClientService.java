@@ -17,11 +17,9 @@ public class AmazonClientService {
     @Value("${amazon.s3.endpoint}")
     private String url;
 
-    // Your bucket name.
     @Value("${amazon.s3.bucket-name}")
     private String bucketName;
 
-    // Getters for parents.
     protected AmazonS3 getClient() {
         return amazonS3;
     }
@@ -37,14 +35,8 @@ public class AmazonClientService {
     // This method are called after Spring starts AmazonClientService into your container.
     @PostConstruct
     private void init() {
-        // Init your AmazonS3 credentials using BasicAWSCredentials.
-//        BasicAWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
-
-        // Start the client using AmazonS3ClientBuilder, here we goes to make a standard client, in the
-        // region SA_EAST_1, and the basic credentials.
         this.amazonS3 = AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.US_EAST_1)
-//                .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .build();
     }
 }

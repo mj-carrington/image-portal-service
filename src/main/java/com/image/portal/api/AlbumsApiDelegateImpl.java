@@ -17,6 +17,10 @@ public class AlbumsApiDelegateImpl implements AlbumsApiDelegate {
     private ImagePortalUserRepository imagePortalUserRepository;
     private ImagePortalUserService imagePortalUserService;
 
+    /**
+     * Retrieves all albums for a given user.
+     * @return Returns a list of albums and a 200 code.
+     */
     @Override
     public ResponseEntity<List<Album>> getAlbums() {
         ImagePortalUser updatedImagePortalUser;

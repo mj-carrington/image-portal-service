@@ -18,6 +18,11 @@ public class UploadApi {
     @Autowired
     private AmazonS3Service amazonS3Service;
 
+    /**
+     * Uploads a file to Amazon S3 service. In the process it generates a unique name for the file.
+     * @param file
+     * @return returns the proper url for the image which can be used in the meta data.
+     */
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Invalid file uploaded")})
     @PostMapping("/mcarrington1/portal/1.0.0/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
