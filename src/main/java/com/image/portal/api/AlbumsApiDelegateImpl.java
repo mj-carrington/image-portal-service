@@ -15,7 +15,8 @@ public class AlbumsApiDelegateImpl implements AlbumsApiDelegate {
 
     @Autowired
     private ImagePortalUserRepository imagePortalUserRepository;
-    private ImagePortalUserService imagePortalUserService;
+    private ImagePortalUserService imagePortalUserService = new ImagePortalUserService();
+    private ImagePortalUser updatedImagePortalUser;
 
     /**
      * Retrieves all albums for a given user.
@@ -23,9 +24,9 @@ public class AlbumsApiDelegateImpl implements AlbumsApiDelegate {
      */
     @Override
     public ResponseEntity<List<Album>> getAlbums() {
-        ImagePortalUser updatedImagePortalUser;
         updatedImagePortalUser = imagePortalUserService.retrieveImagePortalUser(imagePortalUserRepository);
+        List<Album> albums = updatedImagePortalUser.getAlbums();
 
-        return ResponseEntity.ok(updatedImagePortalUser.getAlbums());
+        return ResponseEntity.ok(albums);
     }
 }

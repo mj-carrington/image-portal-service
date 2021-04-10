@@ -1,5 +1,6 @@
 package com.image.portal.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -122,15 +123,40 @@ public class ImagePortalUser {
         Album albumToUpdate = getAlbumById(albumId);
         image.setId(imageId);
 
+        // find location of image by id
         int index = IntStream.range(0, albumToUpdate.getImages().size())
                 .filter(i -> albumToUpdate.getImages().get(i).getId().equals(image.getId()))
                 .findFirst()
                 .orElse(-1);
 
-        albumToUpdate.getImages().set(index, image);
+        // stitch together new image
+        Image updatedImage = updateImageMetadata(albumToUpdate.getImages().get(index), image);
+
+        System.out.println("Updated Image Payload :: " + updatedImage.toString());
+        // replace old image with new in MongoDB
+        albumToUpdate.getImages().set(index, updatedImage);
 
         // put back together album and replace
         replaceAlbum(albumToUpdate);
+    }
+
+    private Image updateImageMetadata(Image oldImage, Image imageUpdates) {
+        Image newImage = new Image();
+
+        newImage.setId(oldImage.getId());
+        newImage.setLocation(oldImage.getLocation());
+
+        if (!StringUtils.isEmpty(imageUpdates.getName())) {
+            newImage.setName(imageUpdates.getName());
+        } else {
+            newImage.setName(oldImage.getName());
+        }
+        if (!StringUtils.isEmpty(imageUpdates.getImageTag())) {
+            newImage.setImageTag(imageUpdates.getImageTag());
+        } else {
+            newImage.setImageTag(oldImage.getImageTag());
+        }
+        return newImage;
     }
 
     public void removeAlbum(String albumId) {
