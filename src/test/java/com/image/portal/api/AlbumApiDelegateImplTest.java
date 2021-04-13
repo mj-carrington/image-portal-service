@@ -4,6 +4,7 @@ import com.image.portal.model.Album;
 import com.image.portal.model.Image;
 import com.image.portal.model.ImagePortalUser;
 import com.image.portal.repository.ImagePortalUserRepository;
+import com.image.portal.service.AmazonS3Service;
 import com.image.portal.service.ImagePortalUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,8 @@ public class AlbumApiDelegateImplTest {
     private ImagePortalUserRepository mockedImagePortalUserRepository;
     @Mock
     private ImagePortalUserService mockedImagePortalUserService;
+    @Mock
+    private AmazonS3Service mockedAmazonS3Service;
 
 
     @BeforeEach
@@ -56,12 +59,16 @@ public class AlbumApiDelegateImplTest {
 
     @Test
     void testDeleteAlbum() {
+        mockedAmazonS3Service.removeImageFromAmazon(new Image());
+
         ResponseEntity<Void> response = albumApiDelegateImpl.deleteAlbum(TEST_ALBUM_ID);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
     void testDeleteImageByAlbumIdAndImageId() {
+        mockedAmazonS3Service.removeImageFromAmazon(new Image());
+
         ResponseEntity<Void> response = albumApiDelegateImpl.deleteImageByAlbumIdAndImageId(TEST_ALBUM_ID, TEST_IMAGE_ID_ONE);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -113,7 +120,8 @@ public class AlbumApiDelegateImplTest {
                 .setFirstName("m.j.")
                 .setLastName("carrington")
                 .setId("id_12345")
-                .setUsername("user1");
+                .setUsername("user1")
+                .setPassword("foo");
     }
 
     private Album getTestAlbum() {

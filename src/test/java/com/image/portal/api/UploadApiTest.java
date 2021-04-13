@@ -49,7 +49,7 @@ public class UploadApiTest {
     void testUploadFileException() {
         lenient().when(mockedAmazonS3Service
                 .uploadImageToAmazon(generateMultiPartFile()))
-                .thenThrow(IOException.class);
+                .thenThrow(NullPointerException.class);
 
         ResponseEntity<?> response = uploadApi.uploadFile(generateMultiPartFile());
 

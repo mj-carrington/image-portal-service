@@ -26,6 +26,7 @@ public class MailService {
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(share.getEmail());
+        mail.setFrom("user@imageportal.com");
         mail.setSubject("Image Portal - Image Share");
         mail.setText("This is from the Image Portal site. Check out these shared images: " + share.getImageUrls());
 
