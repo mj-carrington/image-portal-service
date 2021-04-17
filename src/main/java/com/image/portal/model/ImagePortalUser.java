@@ -108,7 +108,13 @@ public class ImagePortalUser {
         return getAlbumById(albumId).getImages();
     }
 
-    public void addNewImageToAlbum(String albumId, Image image) {
+    /**
+     * Add new image meta data reference to an existing album
+     * @param albumId album id
+     * @param image Image object
+     * @return return back the album we composed, mainly used for testing presently
+     */
+    public Album addNewImageToAlbum(String albumId, Image image) {
         Album albumToUpdate = getAlbumById(albumId);
 
         // build an album with our updated image
@@ -116,10 +122,18 @@ public class ImagePortalUser {
 
         // replace our album in the existing list
         replaceAlbum(albumToUpdate);
+
+        return albumToUpdate;
     }
 
-    // TODO: Consider looping through image list instead of rebuilding entire album
-    public void updateImageToAlbum(String albumId, String imageId, Image image) {
+    /**
+     * Perform meta data updates to an image. Internally calls updateImageMetadata()
+     * @param albumId album id where the image resides
+     * @param imageId Image Id that we want to update
+     * @param image Changes to the meta data in the image we want to apply.
+     * @return return back the album we composed, mainly used for testing presently
+     */
+    public Album updateImageToAlbum(String albumId, String imageId, Image image) {
         Album albumToUpdate = getAlbumById(albumId);
         image.setId(imageId);
 
@@ -138,8 +152,16 @@ public class ImagePortalUser {
 
         // put back together album and replace
         replaceAlbum(albumToUpdate);
+
+        return albumToUpdate;
     }
 
+    /**
+     * Updates the existing attributes for an image already in an album
+     * @param oldImage Existing Image object that we're updating
+     * @param imageUpdates Changes to the Image object
+     * @return updated image
+     */
     private Image updateImageMetadata(Image oldImage, Image imageUpdates) {
         Image newImage = new Image();
 
@@ -159,11 +181,21 @@ public class ImagePortalUser {
         return newImage;
     }
 
+    /**
+     * Removes entire album and contents
+     * @param albumId
+     */
     public void removeAlbum(String albumId) {
         this.albums.removeIf(e -> e.getId().equals(albumId));
     }
 
-    public void removeImageFromAlbum(String albumId, String imageId) {
+    /**
+     * Removes a single image from an album. Will result in an error if the album and id do not exist.
+     * @param albumId
+     * @param imageId imageId
+     * @return Returns the new album with 1 less image; mainly used for testing
+     */
+    public Album removeImageFromAlbum(String albumId, String imageId) {
         // get album to update
         Album albumToUpdate = getAlbumById(albumId);
 
@@ -172,6 +204,8 @@ public class ImagePortalUser {
 
         // send updated album
         replaceAlbum(albumToUpdate);
+
+        return albumToUpdate;
     }
 
     @Override
