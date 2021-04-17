@@ -3,7 +3,6 @@ package com.image.portal.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -29,10 +28,6 @@ public class Image   {
   @JsonProperty("created")
   private String created = LocalDateTime.now().toString();
 
-  private String imageUpload;
-
-  private MultipartFile file;
-
   public Image id(String id) {
     this.imageId = id;
     return this;
@@ -44,7 +39,6 @@ public class Image   {
   */
   @ApiModelProperty(required = true, value = "")
   @NotNull
-
 
   public String getId() {
     return imageId;
@@ -114,6 +108,7 @@ public class Image   {
     this.imageLocation = location;
   }
 
+  public String getCreated() { return created; }
 
   @Override
   public boolean equals(Object o) {
