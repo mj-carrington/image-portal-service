@@ -35,7 +35,9 @@ public class ImagePortalUser {
         return this;
     }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
     public ImagePortalUser setPassword(String password) {
         this.password = password;
@@ -110,8 +112,9 @@ public class ImagePortalUser {
 
     /**
      * Add new image meta data reference to an existing album
+     *
      * @param albumId album id
-     * @param image Image object
+     * @param image   Image object
      * @return return back the album we composed, mainly used for testing presently
      */
     public Album addNewImageToAlbum(String albumId, Image image) {
@@ -128,9 +131,10 @@ public class ImagePortalUser {
 
     /**
      * Perform meta data updates to an image. Internally calls updateImageMetadata()
+     *
      * @param albumId album id where the image resides
      * @param imageId Image Id that we want to update
-     * @param image Changes to the meta data in the image we want to apply.
+     * @param image   Changes to the meta data in the image we want to apply.
      * @return return back the album we composed, mainly used for testing presently
      */
     public Album updateImageToAlbum(String albumId, String imageId, Image image) {
@@ -158,7 +162,8 @@ public class ImagePortalUser {
 
     /**
      * Updates the existing attributes for an image already in an album
-     * @param oldImage Existing Image object that we're updating
+     *
+     * @param oldImage     Existing Image object that we're updating
      * @param imageUpdates Changes to the Image object
      * @return updated image
      */
@@ -183,6 +188,7 @@ public class ImagePortalUser {
 
     /**
      * Removes entire album and contents
+     *
      * @param albumId
      */
     public void removeAlbum(String albumId) {
@@ -191,6 +197,7 @@ public class ImagePortalUser {
 
     /**
      * Removes a single image from an album. Will result in an error if the album and id do not exist.
+     *
      * @param albumId
      * @param imageId imageId
      * @return Returns the new album with 1 less image; mainly used for testing

@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-03-24T09:41:07.734618300-05:00[America/Chicago]")
+
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-03-24T09:41:07" +
+        ".734618300-05:00[America/Chicago]")
 @Validated
 @Api(value = "share", description = "the share API")
 public interface ShareApi {
 
     default ShareApiDelegate getDelegate() {
-        return new ShareApiDelegate() {};
+        return new ShareApiDelegate() {
+        };
     }
 
     /**
@@ -27,18 +30,19 @@ public interface ShareApi {
      *
      * @param body Image(s) that need to be shared (required)
      * @return Operation Successful (status code 200)
-     *         or Invalid input provided (status code 400)
+     * or Invalid input provided (status code 400)
      */
-    @ApiOperation(value = "share image(s) to a customer", nickname = "shareImageS", notes = "", response = Share.class, tags={ "thumbnail view page","image view page", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Operation Successful", response = Share.class),
-        @ApiResponse(code = 400, message = "Invalid input provided") })
+    @ApiOperation(value = "share image(s) to a customer", nickname = "shareImageS", notes = "", response =
+            Share.class, tags = {"thumbnail view page", "image view page",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Operation Successful", response = Share.class),
+            @ApiResponse(code = 400, message = "Invalid input provided")})
     @PostMapping(
-        value = "/share/",
-        produces = { "application/json" },
-        consumes = { "application/json" }
+            value = "/share/",
+            produces = {"application/json"},
+            consumes = {"application/json"}
     )
-    default ResponseEntity<Share> shareImageS(@ApiParam(value = "Image(s) that need to be shared" ,required=true )  @Valid @RequestBody Share body) {
+    default ResponseEntity<Share> shareImageS(@ApiParam(value = "Image(s) that need to be shared", required = true) @Valid @RequestBody Share body) {
         return getDelegate().shareImages(body);
     }
 

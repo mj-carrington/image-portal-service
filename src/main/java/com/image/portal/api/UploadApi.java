@@ -20,6 +20,7 @@ public class UploadApi {
 
     /**
      * Uploads a file to Amazon S3 service. In the process it generates a unique name for the file.
+     *
      * @param file
      * @return returns the proper url for the image which can be used in the meta data.
      */

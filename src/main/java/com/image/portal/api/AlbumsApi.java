@@ -15,13 +15,16 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-03-24T09:41:07.734618300-05:00[America/Chicago]")
+
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-03-24T09:41:07" +
+        ".734618300-05:00[America/Chicago]")
 @Validated
 @Api(value = "albums", description = "the albums API")
 public interface AlbumsApi {
 
     default AlbumsApiDelegate getDelegate() {
-        return new AlbumsApiDelegate() {};
+        return new AlbumsApiDelegate() {
+        };
     }
 
     /**
@@ -30,12 +33,14 @@ public interface AlbumsApi {
      *
      * @return successful operation (status code 200)
      */
-    @ApiOperation(value = "get all albums", nickname = "getAlbums", notes = "Returns all albums", response = Album.class, responseContainer = "List", tags={ "all albums page", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = Album.class, responseContainer = "List") })
+    @ApiOperation(value = "get all albums", nickname = "getAlbums", notes = "Returns all albums", response =
+            Album.class, responseContainer = "List", tags = {"all albums page",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = Album.class, responseContainer =
+                    "List")})
     @GetMapping(
-        value = "/albums/",
-        produces = { "application/json" }
+            value = "/albums/",
+            produces = {"application/json"}
     )
     default ResponseEntity<List<Album>> getAlbums() {
         return getDelegate().getAlbums();

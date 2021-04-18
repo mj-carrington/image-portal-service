@@ -11,6 +11,7 @@ public class ImagePortalUserService {
 
     /**
      * Retrieve an image portal user object from the MongoDB Repository
+     *
      * @param imagePortalUserRepository
      * @return
      */
@@ -20,6 +21,7 @@ public class ImagePortalUserService {
 
     /**
      * Retrieves our MVP user, this is done because our project only supports one user right now.
+     *
      * @param imagePortalUserRepository
      * @return
      */

@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @ControllerAdvice
 public class AppExceptionHandler {
-/*
-    *//**
+    /**
      * This handles exceptions more gracefully where we receive an internal error.
      * In cases where we cannot find the user we return a 404 instead of an error 500.
+     *
      * @param ex
      * @param request
      * @param response

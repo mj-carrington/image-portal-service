@@ -16,6 +16,7 @@ public class AmazonS3Service extends AmazonClientService {
 
     /**
      * Uploads a multipart file to Amazon S3. This is a wrapper class with some stubbed out validation.
+     *
      * @param multipartFile
      * @return
      */
@@ -32,6 +33,7 @@ public class AmazonS3Service extends AmazonClientService {
 
     /**
      * Deletes an image, relies on the "location" attribute of an Image object
+     *
      * @param image
      */
     public void removeImageFromAmazon(Image image) {
@@ -42,6 +44,7 @@ public class AmazonS3Service extends AmazonClientService {
     /**
      * Performs the actual uploading. As part of the process it temporarily parses a file, hence the delete.
      * This also generates a unique file name as part of the process, so we do not accidentally overwrite.
+     *
      * @param multipartFile
      * @return Returns the location of the file
      */
@@ -70,6 +73,7 @@ public class AmazonS3Service extends AmazonClientService {
 
     /**
      * Actual concrete implementation for the upload
+     *
      * @param fileName
      * @param file
      */
