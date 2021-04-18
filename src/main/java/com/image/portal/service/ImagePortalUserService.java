@@ -26,9 +26,4 @@ public class ImagePortalUserService {
     private ImagePortalUser retrieveMvpUser(ImagePortalUserRepository imagePortalUserRepository) {
         return imagePortalUserRepository.findByUsername(MVP_USERNAME.getValue());
     }
-
-    public String extractImagePortalUserId(ImagePortalUserRepository imagePortalUserRepository) {
-        ImagePortalUser imagePortalUser = retrieveMvpUser(imagePortalUserRepository);
-        return imagePortalUser.getId();
-    }
 }
