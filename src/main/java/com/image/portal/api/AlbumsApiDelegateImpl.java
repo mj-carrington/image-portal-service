@@ -20,6 +20,7 @@ public class AlbumsApiDelegateImpl implements AlbumsApiDelegate {
 
     /**
      * Retrieves all albums for a given user.
+     *
      * @return Returns a list of albums and a 200 code.
      */
     @Override

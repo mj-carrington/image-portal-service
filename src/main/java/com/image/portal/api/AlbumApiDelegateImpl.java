@@ -26,6 +26,7 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     /**
      * Add an album for a given portal user
+     *
      * @param album A single album object with various numbers of pictures
      * @return response entity only returns a 201
      */
@@ -40,8 +41,9 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     /**
      * Add an image to an existing album. The only adds the meta data for the image, not the actual file.
+     *
      * @param albumId Album id to perform operation on (required)
-     * @param body Image object that needs to be added (required)
+     * @param body    Image object that needs to be added (required)
      * @return response entity only returns a 201
      */
     @Override
@@ -55,6 +57,7 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     /**
      * Deletes an album. Also makes a chained call to S3 to remove the file.
+     *
      * @param albumId Album id to perform operation on (required)
      * @return response entity only returns a 200 (if call is successful)
      */
@@ -73,6 +76,7 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     /**
      * Remove a single image from an album. Makes a chained call to S3 to remove the file.
+     *
      * @param albumId Album id to perform operation on (required)
      * @param imageId image id to perform operation on (required)
      * @return response entity returns a 200.
@@ -92,6 +96,7 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     /**
      * Retrieves an album object (with associated images) from a given album id
+     *
      * @param albumId Album id to perform operation on (required)
      * @return response entity returns a 200
      */
@@ -104,6 +109,7 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     /**
      * Retrieve a single image from a given album id and image id
+     *
      * @param albumId Album id to perform operation on (required)
      * @param imageId image id to perform operation on (required)
      * @return returns the image object (which includes a url for the file) and 200
@@ -118,6 +124,7 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     /**
      * Retrieves all images in a list
+     *
      * @param albumId Album id to perform operation on (required)
      * @return returns a list of image objects and a 200
      */
@@ -132,9 +139,10 @@ public class AlbumApiDelegateImpl implements AlbumApiDelegate {
 
     /**
      * Updates a given image's meta data.
+     *
      * @param albumId Album id to perform operation on (required)
      * @param imageId image id to perform operation on (required)
-     * @param body Image object that needs to be updated (required)
+     * @param body    Image object that needs to be updated (required)
      * @return returns a 200
      */
     @Override

@@ -14,7 +14,8 @@ import java.util.Optional;
  * A delegate to be called by the {@link AlbumApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-03-24T09:41:07.734618300-05:00[America/Chicago]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-03-24T09:41:07" +
+        ".734618300-05:00[America/Chicago]")
 public interface AlbumApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
@@ -37,17 +38,18 @@ public interface AlbumApiDelegate {
      * POST /album/{albumId}/image/ : Add new image to album
      *
      * @param albumId Album id to perform operation on (required)
-     * @param body Image object that needs to be added (required)
+     * @param body    Image object that needs to be added (required)
      * @return Operation Successful (status code 200)
-     *         or Unable to locate album (status code 404)
+     * or Unable to locate album (status code 404)
      * @see AlbumApi#addImageToAlbum
      */
     default ResponseEntity<Image> addImageToAlbum(String albumId,
-        Image body) {
+                                                  Image body) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"id\" : 1, \"name\" : \"12312312.png\", \"tag\" : \"ID-123145\", \"location\" : \"https://s3.amazonaws.com/TEST/f82dd4ac221b.png\" } ]";
+                    String exampleString = "[ { \"id\" : 1, \"name\" : \"12312312.png\", \"tag\" : \"ID-123145\", " +
+                            "\"location\" : \"https://s3.amazonaws.com/TEST/f82dd4ac221b.png\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -62,8 +64,8 @@ public interface AlbumApiDelegate {
      *
      * @param albumId Album id to perform operation on (required)
      * @return successful operation (status code 200)
-     *         or Invalid ID supplied (status code 400)
-     *         or Album not found (status code 404)
+     * or Invalid ID supplied (status code 400)
+     * or Album not found (status code 404)
      * @see AlbumApi#deleteAlbum
      */
     default ResponseEntity<Void> deleteAlbum(String albumId) {
@@ -77,12 +79,12 @@ public interface AlbumApiDelegate {
      * @param albumId Album id to perform operation on (required)
      * @param imageId image id to perform operation on (required)
      * @return successful operation (status code 200)
-     *         or Invalid ID supplied (status code 400)
-     *         or Image not found (status code 404)
+     * or Invalid ID supplied (status code 400)
+     * or Image not found (status code 404)
      * @see AlbumApi#deleteImageByAlbumIdAndImageId
      */
     default ResponseEntity<Void> deleteImageByAlbumIdAndImageId(String albumId,
-        String imageId) {
+                                                                String imageId) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -93,15 +95,17 @@ public interface AlbumApiDelegate {
      *
      * @param albumId Album id to perform operation on (required)
      * @return successful operation (status code 200)
-     *         or Invalid ID supplied (status code 400)
-     *         or Album not found (status code 404)
+     * or Invalid ID supplied (status code 400)
+     * or Album not found (status code 404)
      * @see AlbumApi#getAlbumById
      */
     default ResponseEntity<Album> getAlbumById(String albumId) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"id\" : 1, \"name\" : \"Swim meet St. Louis Mar 2021\", \"description\" : \"St. Peters RecPlex Swimming\", \"created\" : \"2021-03-15T01:44:51.756+0000\", \"images\" : [ ] } ]";
+                    String exampleString = "[ { \"id\" : 1, \"name\" : \"Swim meet St. Louis Mar 2021\", " +
+                            "\"description\" : \"St. Peters RecPlex Swimming\", \"created\" : \"2021-03-15T01:44:51" +
+                            ".756+0000\", \"images\" : [ ] } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -118,16 +122,17 @@ public interface AlbumApiDelegate {
      * @param albumId Album id to perform operation on (required)
      * @param imageId image id to perform operation on (required)
      * @return successful operation (status code 200)
-     *         or Invalid ID supplied or invalid payload (status code 400)
-     *         or album or image not found (status code 404)
+     * or Invalid ID supplied or invalid payload (status code 400)
+     * or album or image not found (status code 404)
      * @see AlbumApi#getImageByAlbumIdAndImageId
      */
     default ResponseEntity<Image> getImageByAlbumIdAndImageId(String albumId,
-        String imageId) {
+                                                              String imageId) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"id\" : 1, \"name\" : \"12312312.png\", \"tag\" : \"ID-123145\", \"location\" : \"https://s3.amazonaws.com/TEST/f82dd4ac221b.png\" } ]";
+                    String exampleString = "[ { \"id\" : 1, \"name\" : \"12312312.png\", \"tag\" : \"ID-123145\", " +
+                            "\"location\" : \"https://s3.amazonaws.com/TEST/f82dd4ac221b.png\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -143,15 +148,18 @@ public interface AlbumApiDelegate {
      *
      * @param albumId Album id to perform operation on (required)
      * @return successful operation (status code 200)
-     *         or Invalid ID supplied (status code 400)
-     *         or album not found (status code 404)
+     * or Invalid ID supplied (status code 400)
+     * or album not found (status code 404)
      * @see AlbumApi#getImagesByAlbumId
      */
     default ResponseEntity<List<Image>> getImagesByAlbumId(String albumId) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"id\" : 1, \"name\" : \"12312312.png\", \"tag\" : \"ID-123145\", \"location\" : \"https://s3.amazonaws.com/TEST/f82dd4ac221b.png\" }, { \"id\" : 2, \"name\" : \"12312315.png\", \"tag\" : \"ID-123199\", \"location\" : \"https://s3.amazonaws.com/TEST/f82dd4ac100b.png\" } ]";
+                    String exampleString = "[ { \"id\" : 1, \"name\" : \"12312312.png\", \"tag\" : \"ID-123145\", " +
+                            "\"location\" : \"https://s3.amazonaws.com/TEST/f82dd4ac221b.png\" }, { \"id\" : 2, " +
+                            "\"name\" : \"12312315.png\", \"tag\" : \"ID-123199\", \"location\" : \"https://s3" +
+                            ".amazonaws.com/TEST/f82dd4ac100b.png\" } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -166,15 +174,15 @@ public interface AlbumApiDelegate {
      *
      * @param albumId Album id to perform operation on (required)
      * @param imageId image id to perform operation on (required)
-     * @param body Image object that needs to be updated (required)
+     * @param body    Image object that needs to be updated (required)
      * @return successful operation (status code 200)
-     *         or Invalid ID supplied (status code 400)
-     *         or Image not found (status code 404)
+     * or Invalid ID supplied (status code 400)
+     * or Image not found (status code 404)
      * @see AlbumApi#updateImage
      */
     default ResponseEntity<Void> updateImage(String albumId,
-        String imageId,
-        Image body) {
+                                             String imageId,
+                                             Image body) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

@@ -24,6 +24,7 @@ public class ShareApiDelegateImpl implements ShareApiDelegate {
 
     /**
      * Passes along an email address and list of images (a share object) to the mail service
+     *
      * @param body Image(s) that need to be shared (required)
      * @return body of the request and a 200 code
      */
