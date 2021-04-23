@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.image</groupId>
 	<artifactId>portal</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>portal</name>
 	<description>Image Portal</description>
 	<properties>

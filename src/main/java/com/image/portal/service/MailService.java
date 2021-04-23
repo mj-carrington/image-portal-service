@@ -24,12 +24,13 @@ public class MailService {
      * @throws MailException Most common cause for a mail exception is the server not being up.
      */
     public void sendEmail(Share share) throws MailException {
+        String sharedImageList = "* " + String.join("\n* ", share.getImageUrls());
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(share.getEmail());
-        mail.setFrom("user@imageportal.com");
+        mail.setFrom("mcarrington1@live.maryville.edu");
         mail.setSubject("Image Portal - Image Share");
-        mail.setText("This is from the Image Portal site. Check out these shared images: " + share.getImageUrls());
+        mail.setText("This is from the Image Portal site. Check out these shared images:\n" + sharedImageList);
 
         javaMailSender.send(mail);
     }
